@@ -51,6 +51,30 @@ const GlassSurfaceDemo: React.FC<GlassSurfaceDemoProps> = ({
       src: "/images/tokyo-5.jpeg",
       text: "Modern UI Design",
     },
+    {
+      src: "/images/tokyo-6.webp",
+      text: "Digital Art",
+    },
+    {
+      src: "/images/cuisine-1.jpeg",
+      text: "Culinary Experience",
+    },
+    {
+      src: "/images/night-1.jpg",
+      text: "Neon Nights",
+    },
+    {
+      src: "/images/tokyo-2.jpeg",
+      text: "Urban Landscape",
+    },
+    {
+      src: "/images/tokyo-1.avif",
+      text: "City of Dreams",
+    },
+    {
+      src: "/images/tokyo-3.jpg",
+      text: "Future is Now",
+    },
   ];
 
   return (
@@ -58,7 +82,11 @@ const GlassSurfaceDemo: React.FC<GlassSurfaceDemoProps> = ({
       {/* Demo Container */}
       <div
         ref={scrollContainerRef}
-        className="relative h-[600px] overflow-y-auto rounded-lg border border-white/10 bg-black"
+        className="relative h-[600px] overflow-y-auto rounded-lg border border-white/10 bg-black scrollbar-hide"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
       >
         {/* Sticky Glass Surface */}
         <div className="sticky top-1/2 transform -translate-y-1/2 z-50 pointer-events-none flex justify-center">

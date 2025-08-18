@@ -62,15 +62,15 @@ export default function ScrollEffects() {
       );
     });
 
-    const galaxy = document.getElementById('galaxy-layer');
-    if (galaxy) {
-      gsap.to(galaxy, {
-        y: -150,
-        ease: 'none',
-        // Remove any default blending/transparent overlays affecting darkness
-        scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: true },
-      });
-    }
+    // Comment out galaxy movement to prevent background gaps
+    // const galaxy = document.getElementById('galaxy-layer');
+    // if (galaxy) {
+    //   gsap.to(galaxy, {
+    //     y: -150,
+    //     ease: 'none',
+    //     scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: true },
+    //   });
+    // }
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());

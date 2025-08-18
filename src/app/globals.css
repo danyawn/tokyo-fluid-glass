@@ -19,10 +19,90 @@
   }
 }
 
+/* Hide scrollbar for webkit browsers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Global scrollbar removal - hide ALL scrollbars */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Ensure body and html also have no scrollbars */
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Specific scrollbar removal for React Three Fiber components */
+canvas {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+canvas::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Remove scrollbars from any div containing Canvas */
+div[style*="overflow"] {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+div[style*="overflow"]::-webkit-scrollbar {
+  display: none !important;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Ensure galaxy background covers entire page */
+#galaxy-layer {
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  /* Ensure galaxy stays in place during scroll */
+  transform: translateY(0) !important;
+}
+
+/* Ensure body and html have no background that could interfere */
+html, body {
+  background: #000000 !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ensure main container covers full content */
+main {
+  min-height: 100vh;
+  position: relative;
 }
 
 /* Glitch Text keyframes and utilities */
@@ -51,6 +131,138 @@ body {
 }
 .animate-glitch-after { animation: glitch var(--after-duration) infinite linear alternate-reverse }
 .animate-glitch-before { animation: glitch var(--before-duration) infinite linear alternate-reverse }
+
+/* Size Guard Warning Styles */
+.size-guard-warning {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+  backdrop-filter: blur(10px);
+}
+
+.size-guard-warning::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Size Guard Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Delay utilities for staggered animations */
+.delay-1000 {
+  animation-delay: 1s;
+}
+
+.delay-2000 {
+  animation-delay: 2s;
+}
+
+/* Enhanced pulse animation */
+@keyframes enhancedPulse {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse {
+  animation: enhancedPulse 3s ease-in-out infinite;
+}
+
+/* Glass Effect Text */
+.glass-text {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 16px 24px;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  animation: glassGlow 3s ease-in-out infinite;
+}
+
+.glass-text::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  border-radius: 12px;
+  animation: glassShine 4s ease-in-out infinite;
+}
+
+@keyframes glassGlow {
+  0%, 100% {
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 0 20px rgba(255, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 0 40px rgba(255, 0, 0, 0.6);
+  }
+}
+
+@keyframes glassShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Glass Card Effect */
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.1);
+}
 
 /* One-shot initial loader (pure CSS) */
 .initial-loader {

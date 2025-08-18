@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import FluidGlass from '../../components/FluidGlass';
 import GlitchText from './GlitchText';
 import GlassSurface from './GlassSurface';
 
@@ -54,30 +53,7 @@ export default function Hero() {
   return (
     <section className="flex flex-col items-center justify-center h-[100vh] px-4">
       <div className="w-full max-w-6xl mx-auto">
-        <FluidGlass
-          mode={isMobile ? 'bar' : 'lens'}
-          lensProps={{
-            scale: 0.25,
-            ior: 1.15,
-            thickness: 5,
-            chromaticAberration: 0.1,
-            anisotropy: 0.01,
-            navItems: [
-              { label: 'Home', link: '#' },
-              { label: 'About Tokyo', link: '#about' },
-              { label: 'Gallery', link: '#gallery' },
-              { label: 'Contact', link: '#contact' },
-            ],
-          }}
-          barProps={{
-            navItems: [
-              { label: 'Home', link: '#' },
-              { label: 'About', link: '#about' },
-              { label: 'Gallery', link: '#gallery' },
-              { label: 'Contact', link: '#contact' },
-            ],
-          }}
-        />
+        {/* Hero content without FluidGlass */}
       </div>
       <div className="mt-6 text-center">
         <div ref={titleRef} className="mb-2 flex items-center justify-center">

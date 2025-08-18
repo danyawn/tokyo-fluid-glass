@@ -4,6 +4,7 @@ import "./globals.css";
 import ScrollEffects from "./components/ui/ScrollEffects";
 import SplashCursor from "./components/ui/SplashCursor";
 import InitialLoader from "./components/ui/InitialLoader";
+import SizeGuard from "./components/ui/SizeGuard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,10 +70,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ScrollEffects />
-        <SplashCursor />
-        <InitialLoader />
-        {children}
+        <SizeGuard minWidth={1024} minHeight={768}>
+          <ScrollEffects />
+          <SplashCursor />
+          <InitialLoader />
+          {children}
+        </SizeGuard>
       </body>
     </html>
   );

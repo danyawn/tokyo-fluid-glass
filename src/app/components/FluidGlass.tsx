@@ -56,8 +56,8 @@ export default function FluidGlass({
     ...modeProps
   } = rawOverrides;
   return (
-    <Canvas camera={{ position: [0, 0, 20], fov: 15 }} gl={{ alpha: true }} className="!block w-full h-[60vh] md:h-[70vh] lg:h-[80vh]">
-      <ScrollControls damping={0.2} pages={3} distance={0.4}>
+    <Canvas camera={{ position: [0, 0, 20], fov: 15 }} gl={{ alpha: true }} className="!block w-full h-[60vh] md:h-[70vh] lg:h-[80vh] scrollbar-hide">
+      <ScrollControls damping={0.2} pages={2} distance={0.4}>
         {mode === 'bar' && <NavItems items={navItems} />}
         <Wrapper modeProps={modeProps}>
           <Scroll>
@@ -127,7 +127,7 @@ const ModeWrapper = memo(function ModeWrapper({
     gl.setRenderTarget(buffer);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
-    gl.setClearColor(0x5227ff, 1);
+    gl.setClearColor(0x000000, 0); // Transparent background
   });
 
   const {
@@ -274,7 +274,7 @@ function NavItems({ items }: NavItemsProps) {
           color="white"
           anchorX="center"
           anchorY="middle"
-          font="/assets/fonts/figtreeblack.ttf"
+          font=""
           outlineWidth={0}
           outlineBlur="20%"
           outlineColor="#000"
@@ -310,56 +310,60 @@ function Images() {
   });
   return (
     <group ref={group}>
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
+      {/* Tokyo Cityscapes - Extended for more scroll content */}
       <Image position={[-2, 0, 0]} scale={[3, typeof height === 'number' ? height / 1.1 : 3]} url={'/images/tokyo-1.avif'} />
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[2, 0, 3]} scale={[3, 3]} url={'/images/tokyo-2.jpeg'} />
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[-2.05, typeof height === 'number' ? -height : -3, 6]} scale={[1, 3]} url={'/images/tokyo-3.jpg'} />
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[-0.6, typeof height === 'number' ? -height : -3, 9]} scale={[1, 2]} url={'/images/tokyo-4.jpg'} />
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[0.75, typeof height === 'number' ? -height : -3, 10.5]} scale={[1.5, 1.5]} url={'/images/tokyo-5.jpeg'} />
+      
+      {/* Additional Tokyo Images */}
+      <Image position={[1.5, typeof height === 'number' ? -height * 0.5 : -1.5, 12]} scale={[2, 2]} url={'/images/tokyo-6.webp'} />
+      <Image position={[-1.8, typeof height === 'number' ? -height * 0.7 : -2.1, 15]} scale={[1.8, 1.8]} url={'/images/cuisine-1.jpeg'} />
+      <Image position={[2.2, typeof height === 'number' ? -height * 0.3 : -0.9, 18]} scale={[2.2, 2.2]} url={'/images/cuisine-2.jpg'} />
+      <Image position={[-0.8, typeof height === 'number' ? -height * 0.9 : -2.7, 21]} scale={[1.6, 1.6]} url={'/images/night-1.jpg'} />
+      <Image position={[1.2, typeof height === 'number' ? -height * 0.6 : -1.8, 24]} scale={[1.9, 1.9]} url={'/images/night-2.jpeg'} />
+      
+      {/* Limited scroll content - just a few more images */}
+      <Image position={[-2.5, typeof height === 'number' ? -height * 1.1 : -3.3, 27]} scale={[1.4, 1.4]} url={'/images/tokyo-1.avif'} />
+      <Image position={[2.8, typeof height === 'number' ? -height * 1.3 : -3.9, 30]} scale={[1.7, 1.7]} url={'/images/tokyo-2.jpeg'} />
+      <Image position={[-1.2, typeof height === 'number' ? -height * 1.5 : -4.5, 33]} scale={[2.1, 2.1]} url={'/images/tokyo-3.jpg'} />
+      <Image position={[1.8, typeof height === 'number' ? -height * 1.7 : -5.1, 36]} scale={[1.5, 1.5]} url={'/images/tokyo-4.jpg'} />
+      <Image position={[-2.2, typeof height === 'number' ? -height * 1.9 : -5.7, 39]} scale={[1.8, 1.8]} url={'/images/tokyo-5.jpeg'} />
+      
+      
     </group>
   );
 }
 
 function Typography() {
-  const DEVICE = {
-    mobile: { fontSize: 0.2 },
-    tablet: { fontSize: 0.4 },
-    desktop: { fontSize: 0.7 },
-  };
-  const getDevice = () => {
-    const w = window.innerWidth;
-    return w <= 639
-      ? 'mobile'
-      : w <= 1023
-        ? 'tablet'
-        : 'desktop';
-  };
-  const [device, setDevice] = useState<'mobile' | 'tablet' | 'desktop'>(getDevice());
-  useEffect(() => {
-    const onResize = () => setDevice(getDevice());
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-  const { fontSize } = DEVICE[device];
+  const groupRef = useRef<THREE.Group>(null);
+  
+  // Simple floating animation
+  useFrame((state) => {
+    if (groupRef.current) {
+      const time = state.clock.getElapsedTime();
+      groupRef.current.position.y = Math.sin(time * 0.8) * 0.01;
+    }
+  });
+  
   return (
-    <Text
-      position={[0, 0, 12]}
-      font="/assets/fonts/figtreeblack.ttf"
-      fontSize={fontSize}
-      letterSpacing={-0.05}
-      outlineWidth={0}
-      outlineBlur="20%"
-      outlineColor="#000"
-      outlineOpacity={0.5}
-      color="white"
-      anchorX="center"
-      anchorY="middle"
-    >
-      React Bits
-    </Text>
+    <group ref={groupRef} position={[0, 0, 12]}>
+      <Text
+        position={[0, 0, 0.1]}
+        font=""
+        fontSize={0.4}
+        letterSpacing={-0.05}
+        outlineWidth={0}
+        outlineBlur="20%"
+        outlineColor="#000"
+        outlineOpacity={0.5}
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+      >
+        Fluid Glass
+      </Text>
+    </group>
   );
 }

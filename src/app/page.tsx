@@ -6,10 +6,11 @@ import CardSwap, { Card } from './components/ui/CardSwap';
 import GlitchText from './components/ui/GlitchText';
 import GlassSurfaceDemo from './components/ui/GlassSurfaceDemo';
 import ProfileCardWrapper from './components/ui/ProfileCardWrapper';
+import FluidGlass from './components/FluidGlass';
 
 export default function Page() {
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-black">
+    <main className="relative w-full overflow-hidden bg-black pb-0" style={{ minHeight: '100vh', height: 'auto' }}>
       {/* Galaxy background */}
       <div id="galaxy-layer" className="absolute inset-0 z-0 pointer-events-none">
         <Galaxy
@@ -163,6 +164,44 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Fluid Glass Section */}
+      <section className="relative z-10 py-24" data-reveal>
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-12">Fluid Glass Experience</h2>
+          <p className="text-lg text-gray-300 text-center mb-16 max-w-3xl mx-auto">
+            Immerse yourself in the fluid glass effect with Tokyo&apos;s stunning imagery. Watch as the glass lens distorts and refracts the beautiful cityscapes.
+          </p>
+          <div className="relative" style={{ height: '600px' }}>
+            <FluidGlass
+              mode="lens"
+              lensProps={{
+                scale: 0.25,
+                ior: 1.15,
+                thickness: 5,
+                chromaticAberration: 0.1,
+                anisotropy: 0.01,
+                transmission: 0.9,
+                roughness: 0.1,
+                color: '#ffffff',
+                attenuationColor: '#ffffff',
+                attenuationDistance: 0.25,
+              }}
+            />
+            {/* HTML Overlay with GlitchText
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <GlitchText 
+                speed={1.8} 
+                enableShadows 
+                enableOnHover={false} 
+                className="text-4xl md:text-6xl lg:text-8xl font-black text-white leading-none"
+              >
+                Fluid Glass
+              </GlitchText>
+            </div> */}
+          </div>
+        </div>
+      </section>
+
       {/* Profile Card Section */}
       <section className="relative z-10 py-24" data-reveal>
         <div className="max-w-6xl mx-auto px-4">
@@ -177,7 +216,7 @@ export default function Page() {
       </section>
 
       {/* Footer with GlitchText */}
-      <footer className="relative z-10 py-32 mt-24 mb-16">
+      <footer className="relative z-10 py-32 mt-24 mb-0">
         <div className="max-w-6xl mx-auto px-4 text-center overflow-visible">
           <div className="mb-4 text-gray-400">Made with</div>
           <div className="flex items-center justify-center">
