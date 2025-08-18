@@ -7,6 +7,7 @@ interface GlitchTextProps {
   speed?: number;
   enableShadows?: boolean;
   enableOnHover?: boolean;
+  subtle?: boolean;
   className?: string;
 }
 
@@ -22,6 +23,7 @@ const GlitchText: FC<GlitchTextProps> = ({
   speed = 1,
   enableShadows = true,
   enableOnHover = true,
+  subtle = false,
   className = '',
 }) => {
   const inlineStyles: CustomCSSProperties = {
@@ -32,8 +34,9 @@ const GlitchText: FC<GlitchTextProps> = ({
   };
 
   const hoverClass = enableOnHover ? 'enable-on-hover' : '';
+  const subtleClass = subtle ? 'subtle' : '';
   return (
-    <div className={`glitch ${hoverClass} ${className}`} style={inlineStyles} data-text={children}>
+    <div className={`glitch ${hoverClass} ${subtleClass} ${className}`} style={inlineStyles} data-text={children}>
       {children}
     </div>
   );

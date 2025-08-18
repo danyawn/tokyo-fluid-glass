@@ -12,27 +12,29 @@ export default function Page() {
   return (
     <main className="relative w-full overflow-hidden bg-black pb-0" style={{ minHeight: '100vh', height: 'auto' }}>
       {/* Galaxy background */}
-      <div id="galaxy-layer" className="absolute inset-0 z-0 pointer-events-none">
+      <div id="galaxy-layer" className="absolute inset-0 z-0">
         <Galaxy
           mouseRepulsion
           mouseInteraction
-          density={1.1}
-          glowIntensity={0.35}
+          density={0.8}
+          glowIntensity={0.25}
           saturation={0.0}
           hueShift={140}
-          twinkleIntensity={0.35}
-          rotationSpeed={0.12}
-          starSpeed={0.5}
+          twinkleIntensity={0.25}
+          rotationSpeed={0.08}
+          starSpeed={0.3}
         />
       </div>
       {/* Hero with GSAP entrance animations */}
-      <div className="relative z-10">
-        <Hero />
+      <div className="relative z-10 pointer-events-none">
+        <div className="pointer-events-auto">
+          <Hero />
+        </div>
       </div>
 
       {/* TextPressure section */}
-      <section className="relative z-10 py-24" data-reveal>
-        <div className="max-w-6xl mx-auto px-4" style={{ height: 220 }}>
+      <section className="relative z-10 py-24 pointer-events-none" data-reveal>
+        <div className="max-w-6xl mx-auto px-4 pointer-events-auto" style={{ height: 220 }}>
           <TextPressure
             text="Experience Tokyo"
             flex
@@ -47,9 +49,9 @@ export default function Page() {
         </div>
       </section>
       {/* Gallery Section (Masonry) */}
-      <section id="gallery" className="relative z-10 py-20" data-reveal-root>
-        <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-10">Gallery</h2>
-        <div className="max-w-6xl mx-auto px-4 md:px-6" style={{ height: 1400 }}>
+      <section id="gallery" className="relative z-10 py-20 pointer-events-none" data-reveal-root>
+        <div className="max-w-6xl mx-auto px-4 md:px-6 pointer-events-auto" style={{ height: 1400 }}>
+          <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-10">Gallery</h2>
           <Masonry
             items={(() => {
               const baseItems: MasonryItem[] = [
@@ -104,9 +106,9 @@ export default function Page() {
         </div>
       </section>
       {/* About Section */}
-      <section id="about" className="relative z-10 py-16" data-reveal>
-        <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-8">About Tokyo</h2>
-        <div className="max-w-3xl mx-auto text-gray-200 text-lg md:text-xl text-center">
+      <section id="about" className="relative z-10 py-16 pointer-events-none" data-reveal>
+        <div className="max-w-3xl mx-auto text-gray-200 text-lg md:text-xl text-center pointer-events-auto">
+          <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-8">About Tokyo</h2>
           <p>
             Tokyo is Japan&apos;s capital and the world&apos;s most populous metropolis. From ancient temples to futuristic skyscrapers, Tokyo offers a unique blend of history, culture, and technology. Experience the cherry blossoms, bustling Shibuya, tranquil gardens, and the iconic Tokyo Tower.
           </p>
@@ -114,8 +116,8 @@ export default function Page() {
       </section>
 
       {/* Highlights - CardSwap */}
-      <section className="relative z-10 py-24" data-reveal>
-        <div className="max-w-6xl mx-auto px-4">
+      <section className="relative z-10 py-24 pointer-events-none" data-reveal>
+        <div className="max-w-6xl mx-auto px-4 pointer-events-auto">
           <div className="relative h-[600px] flex items-center justify-center">
             <CardSwap cardDistance={70} verticalDistance={80} delay={4500}>
               <Card className="p-0 w-[624px] h-[468px] text-white overflow-hidden">
@@ -154,8 +156,8 @@ export default function Page() {
       </section>
 
       {/* Glass Surface Demo Section */}
-      <section className="relative z-10 py-24" data-reveal>
-        <div className="max-w-6xl mx-auto px-4">
+      <section className="relative z-10 py-24 pointer-events-none" data-reveal>
+        <div className="max-w-6xl mx-auto px-4 pointer-events-auto">
           <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-12">Glass Surface Experience</h2>
           <p className="text-lg text-gray-300 text-center mb-16 max-w-3xl mx-auto">
             Experience the power of glass morphism with our interactive demo. Adjust the controls to see how different parameters affect the glass surface effect.
@@ -165,8 +167,8 @@ export default function Page() {
       </section>
 
       {/* Fluid Glass Section */}
-      <section className="relative z-10 py-24" data-reveal>
-        <div className="max-w-6xl mx-auto px-4">
+      <section className="relative z-10 py-24 pointer-events-none" data-reveal>
+        <div className="max-w-6xl mx-auto px-4 pointer-events-auto">
           <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-12">Fluid Glass Experience</h2>
           <p className="text-lg text-gray-300 text-center mb-16 max-w-3xl mx-auto">
             Immerse yourself in the fluid glass effect with Tokyo&apos;s stunning imagery. Watch as the glass lens distorts and refracts the beautiful cityscapes.
@@ -203,8 +205,8 @@ export default function Page() {
       </section>
 
       {/* Profile Card Section */}
-      <section className="relative z-10 py-24" data-reveal>
-        <div className="max-w-6xl mx-auto px-4">
+      <section className="relative z-10 py-24 pointer-events-none" data-reveal>
+        <div className="max-w-6xl mx-auto px-4 pointer-events-auto">
           <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-12">Meet the Developer</h2>
           <p className="text-lg text-gray-300 text-center mb-16 max-w-3xl mx-auto">
             Get to know the creative mind behind this Tokyo experience website.
@@ -216,8 +218,8 @@ export default function Page() {
       </section>
 
       {/* Footer with GlitchText */}
-      <footer className="relative z-10 py-32 mt-24 mb-0">
-        <div className="max-w-6xl mx-auto px-4 text-center overflow-visible">
+      <footer className="relative z-10 py-32 mt-24 mb-0 pointer-events-none">
+        <div className="max-w-6xl mx-auto px-4 text-center overflow-visible pointer-events-auto">
           <div className="mb-4 text-gray-400">Made with</div>
           <div className="flex items-center justify-center">
             <GlitchText speed={0.6} enableShadows enableOnHover={false} className="text-[clamp(1.5rem,6vw,3rem)]">

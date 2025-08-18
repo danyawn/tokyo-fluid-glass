@@ -9,6 +9,16 @@
   cursor: pointer;
 }
 
+.glitch.subtle::after {
+  left: 2px !important;
+  text-shadow: none !important;
+}
+
+.glitch.subtle::before {
+  left: -2px !important;
+  text-shadow: none !important;
+}
+
 .glitch::after,
 .glitch::before {
   content: attr(data-text);
