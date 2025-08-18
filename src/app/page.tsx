@@ -1,103 +1,193 @@
-import Image from "next/image";
+import Galaxy from './components/Galaxy';
+import Hero from './components/ui/Hero';
+import Masonry, { MasonryItem } from './components/ui/Masonry';
+import TextPressure from './components/ui/TextPressure';
+import CardSwap, { Card } from './components/ui/CardSwap';
+import GlitchText from './components/ui/GlitchText';
+import GlassSurfaceDemo from './components/ui/GlassSurfaceDemo';
+import ProfileCardWrapper from './components/ui/ProfileCardWrapper';
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <main className="relative min-h-screen w-full overflow-hidden bg-black">
+      {/* Galaxy background */}
+      <div id="galaxy-layer" className="absolute inset-0 z-0 pointer-events-none">
+        <Galaxy
+          mouseRepulsion
+          mouseInteraction
+          density={1.1}
+          glowIntensity={0.35}
+          saturation={0.0}
+          hueShift={140}
+          twinkleIntensity={0.35}
+          rotationSpeed={0.12}
+          starSpeed={0.5}
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+      </div>
+      {/* Hero with GSAP entrance animations */}
+      <div className="relative z-10">
+        <Hero />
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* TextPressure section */}
+      <section className="relative z-10 py-24" data-reveal>
+        <div className="max-w-6xl mx-auto px-4" style={{ height: 220 }}>
+          <TextPressure
+            text="Experience Tokyo"
+            flex
+            alpha={false}
+            stroke={false}
+            width
+            weight
+            italic
+            textColor="#ffffff"
+            minFontSize={36}
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      </section>
+      {/* Gallery Section (Masonry) */}
+      <section id="gallery" className="relative z-10 py-20" data-reveal-root>
+        <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-10">Gallery</h2>
+        <div className="max-w-6xl mx-auto px-4 md:px-6" style={{ height: 1400 }}>
+          <Masonry
+            items={(() => {
+              const baseItems: MasonryItem[] = [
+                { id: 'tokyo-1', img: '/images/tokyo-1.avif', url: '#', height: 520 },
+                { id: 'tokyo-2', img: '/images/tokyo-2.jpeg', url: '#', height: 360 },
+                { id: 'tokyo-3', img: '/images/tokyo-3.jpg', url: '#', height: 640 },
+                { id: 'tokyo-4', img: '/images/tokyo-4.jpg', url: '#', height: 420 },
+                { id: 'tokyo-5', img: '/images/tokyo-5.jpeg', url: '#', height: 580 },
+                { id: 'tokyo-6', img: '/images/tokyo-6.webp', url: '#', height: 480 },
+                { id: 'cuisine-1', img: '/images/cuisine-1.jpeg', url: '#', height: 380 },
+                { id: 'cuisine-2', img: '/images/cuisine-2.jpg', url: '#', height: 520 },
+                { id: 'night-1', img: '/images/night-1.jpg', url: '#', height: 440 },
+                { id: 'night-2', img: '/images/night-2.jpeg', url: '#', height: 600 },
+              ];
+
+              // Create multiple sets with random variations
+              const allItems: MasonryItem[] = [];
+              
+              // Loop 2 times to create ~20 items
+              for (let setIndex = 0; setIndex < 2; setIndex++) {
+                baseItems.forEach((item, itemIndex) => {
+                  // Random height variation (±10% - reduced to prevent overflow)
+                  const heightVariation = item.height * (0.9 + Math.random() * 0.2);
+                  
+                  allItems.push({
+                    ...item,
+                    id: `${setIndex}-${itemIndex}-${item.id}`,
+                    height: Math.round(heightVariation),
+                  });
+                });
+              }
+
+              // Shuffle the final array for random order
+              const shuffled = [...allItems];
+              for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+              }
+
+              return shuffled;
+            })()}
+            ease="power3.out"
+            duration={0.6}
+            stagger={0.08}
+            animateFrom="random"
+            scaleOnHover
+            hoverScale={0.97}
+            blurToFocus
+            colorShiftOnHover={false}
+            lazy={true}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        </div>
+      </section>
+      {/* About Section */}
+      <section id="about" className="relative z-10 py-16" data-reveal>
+        <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-8">About Tokyo</h2>
+        <div className="max-w-3xl mx-auto text-gray-200 text-lg md:text-xl text-center">
+          <p>
+            Tokyo is Japan&apos;s capital and the world&apos;s most populous metropolis. From ancient temples to futuristic skyscrapers, Tokyo offers a unique blend of history, culture, and technology. Experience the cherry blossoms, bustling Shibuya, tranquil gardens, and the iconic Tokyo Tower.
+          </p>
+        </div>
+      </section>
+
+      {/* Highlights - CardSwap */}
+      <section className="relative z-10 py-24" data-reveal>
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="relative h-[600px] flex items-center justify-center">
+            <CardSwap cardDistance={70} verticalDistance={80} delay={4500}>
+              <Card className="p-0 w-[624px] h-[468px] text-white overflow-hidden">
+                <div className="w-full h-full relative">
+                  <img src="/images/cuisine-1.jpeg" alt="Tokyo Cuisine" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-2xl font-bold mb-1">Tokyo Cuisine</h3>
+                    <p className="text-sm text-gray-200">Sushi counters, ramen alleys, and late-night izakayas across the city.</p>
+                  </div>
+                </div>
+              </Card>
+              <Card className="p-0 w-[624px] h-[468px] text-white overflow-hidden">
+                <div className="w-full h-full relative">
+                  <img src="/images/night-1.jpg" alt="Tokyo Nightlife" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-2xl font-bold mb-1">Neon Nights</h3>
+                    <p className="text-sm text-gray-200">Shibuya crossings, arcades, and glowing alleys that never sleep.</p>
+                  </div>
+                </div>
+              </Card>
+              <Card className="p-0 w-[624px] h-[468px] text-white overflow-hidden">
+                <div className="w-full h-full relative">
+                  <img src="/images/tokyo-3.jpg" alt="Tokyo Culture" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-2xl font-bold mb-1">Culture & Heritage</h3>
+                    <p className="text-sm text-gray-200">Tranquil shrines, gardens, and timeless traditions meet modern design.</p>
+                  </div>
+                </div>
+              </Card>
+            </CardSwap>
+          </div>
+        </div>
+      </section>
+
+      {/* Glass Surface Demo Section */}
+      <section className="relative z-10 py-24" data-reveal>
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-12">Glass Surface Experience</h2>
+          <p className="text-lg text-gray-300 text-center mb-16 max-w-3xl mx-auto">
+            Experience the power of glass morphism with our interactive demo. Adjust the controls to see how different parameters affect the glass surface effect.
+          </p>
+          <GlassSurfaceDemo />
+        </div>
+      </section>
+
+      {/* Profile Card Section */}
+      <section className="relative z-10 py-24" data-reveal>
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-12">Meet the Developer</h2>
+          <p className="text-lg text-gray-300 text-center mb-16 max-w-3xl mx-auto">
+            Get to know the creative mind behind this Tokyo experience website.
+          </p>
+          <div className="flex justify-center">
+            <ProfileCardWrapper />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer with GlitchText */}
+      <footer className="relative z-10 py-32 mt-24 mb-16">
+        <div className="max-w-6xl mx-auto px-4 text-center overflow-visible">
+          <div className="mb-4 text-gray-400">Made with</div>
+          <div className="flex items-center justify-center">
+            <GlitchText speed={0.6} enableShadows enableOnHover={false} className="text-[clamp(1.5rem,6vw,3rem)]">
+              Tokyo Experience
+            </GlitchText>
+          </div>
+        </div>
       </footer>
-    </div>
+      {/* Contact section removed per request */}
+    </main>
   );
 }
