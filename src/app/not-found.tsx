@@ -41,8 +41,8 @@ export default function NotFound() {
               Page Not Found
             </h1>
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-              Looks like you've wandered into the wrong neighborhood in Tokyo. 
-              This page doesn't exist in our digital cityscape.
+              Looks like you&apos;ve wandered into the wrong neighborhood in Tokyo. 
+              This page doesn&apos;t exist in our digital cityscape.
             </p>
           </div>
 
@@ -69,8 +69,8 @@ export default function NotFound() {
                   Lost in Translation
                 </h2>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  Don't worry, even the most experienced travelers get lost sometimes. 
-                  Let's get you back on track to explore the real Tokyo experience.
+                  Don&apos;t worry, even the most experienced travelers get lost sometimes. 
+                  Let&apos;s get you back on track to explore the real Tokyo experience.
                 </p>
               </div>
             </div>
