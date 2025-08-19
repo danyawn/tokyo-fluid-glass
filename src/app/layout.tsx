@@ -1,62 +1,91 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import ScrollEffects from "./components/ui/ScrollEffects";
 import SplashCursor from "./components/ui/SplashCursor";
 import InitialLoader from "./components/ui/InitialLoader";
 import SizeGuard from "./components/ui/SizeGuard";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Tokyo — Fluid Glass, Galaxy Background & Masonry Gallery",
+    default: "Tokyo Experience — Fluid Glass, Iridescence & Interactive Gallery",
     template: "%s | Tokyo Experience",
   },
   description:
-    "Discover Tokyo with fluid-glass 3D, galaxy shader background, GSAP interactions, and a dynamic masonry gallery.",
+    "Immerse yourself in Tokyo with fluid glass 3D effects, iridescence backgrounds, interactive masonry gallery, and GSAP animations. Experience the future of web design.",
   keywords: [
     "Tokyo",
     "Japan",
     "3D",
     "three.js",
     "react-three-fiber",
-    "ogl",
+    "fluid glass",
+    "iridescence",
     "gsap",
-    "gallery",
+    "masonry gallery",
+    "glass morphism",
+    "interactive",
+    "web design",
+    "performance",
+    "next.js",
+    "typescript",
   ],
+  authors: [{ name: "Yan Danu" }],
+  creator: "Yan Danu",
+  publisher: "Yan Danu",
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    title: "Tokyo — Fluid Glass & Galaxy",
+    title: "Tokyo Experience — Fluid Glass & Iridescence",
     description:
-      "Immersive Tokyo landing with fluid glass 3D, galaxy shader, and animated gallery.",
+      "Immersive Tokyo experience with fluid glass 3D, iridescence backgrounds, interactive gallery, and GSAP animations. Built with Next.js 15 and Three.js.",
+    url: "https://fluid-glass-web.vercel.app",
+    siteName: "Tokyo Experience",
     images: [
       {
         url: "/images/tokyo-1.avif",
         width: 1200,
         height: 630,
-        alt: "Tokyo skyline",
+        alt: "Tokyo skyline with fluid glass effects",
+      },
+      {
+        url: "/images/tokyo-2.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Tokyo cityscape with iridescence background",
       },
     ],
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tokyo — Fluid Glass & Galaxy",
+    title: "Tokyo Experience — Fluid Glass & Iridescence",
     description:
-      "Immersive Tokyo landing with fluid glass 3D, galaxy shader, and animated gallery.",
+      "Immersive Tokyo experience with fluid glass 3D, iridescence backgrounds, interactive gallery, and GSAP animations.",
     images: ["/images/tokyo-1.avif"],
+    creator: "@danyawn",
   },
   icons: {
     icon: "/favicon.svg",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  category: "technology",
+  classification: "Web Application",
+  other: {
+    "theme-color": "#000000",
+    "msapplication-TileColor": "#000000",
   },
 };
 
@@ -68,7 +97,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${poppins.variable} antialiased`}
       >
         <SizeGuard minWidth={1024} minHeight={768}>
           <ScrollEffects />
