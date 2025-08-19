@@ -1,282 +1,303 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-/* Hide scrollbar for webkit browsers */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for Firefox */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Global scrollbar removal - hide ALL scrollbars */
-* {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-}
-
-*::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-/* Ensure body and html also have no scrollbars */
-html, body {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-html::-webkit-scrollbar, 
-body::-webkit-scrollbar {
-  display: none;
-}
-
-/* Specific scrollbar removal for React Three Fiber components */
-canvas {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
-canvas::-webkit-scrollbar {
-  display: none !important;
-}
-
-/* Remove scrollbars from any div containing Canvas */
-div[style*="overflow"] {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
-div[style*="overflow"]::-webkit-scrollbar {
-  display: none !important;
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Ensure galaxy background covers entire page */
-#galaxy-layer {
-  min-height: 100vh;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  /* Ensure galaxy stays in place during scroll */
-  transform: translateY(0) !important;
-}
-
-/* Ensure body and html have no background that could interfere */
-html, body {
-  background: #000000 !important;
-  min-height: 100vh;
+  margin: 0;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #000000;
+  color: #ffffff;
   overflow-x: hidden;
+  font-feature-settings: 'rlig' 1, 'calt' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensure main container covers full content */
-main {
-  min-height: 100vh;
-  position: relative;
+/* Ensure scrollbars are hidden */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  box-sizing: border-box;
 }
 
-/* Glitch Text keyframes and utilities */
-@keyframes glitch {
-  0% { clip-path: inset(20% 0 50% 0) }
-  5% { clip-path: inset(10% 0 60% 0) }
-  10% { clip-path: inset(15% 0 55% 0) }
-  15% { clip-path: inset(25% 0 35% 0) }
-  20% { clip-path: inset(30% 0 40% 0) }
-  25% { clip-path: inset(40% 0 20% 0) }
-  30% { clip-path: inset(10% 0 60% 0) }
-  35% { clip-path: inset(15% 0 55% 0) }
-  40% { clip-path: inset(25% 0 35% 0) }
-  45% { clip-path: inset(30% 0 40% 0) }
-  50% { clip-path: inset(20% 0 50% 0) }
-  55% { clip-path: inset(10% 0 60% 0) }
-  60% { clip-path: inset(15% 0 55% 0) }
-  65% { clip-path: inset(25% 0 35% 0) }
-  70% { clip-path: inset(30% 0 40% 0) }
-  75% { clip-path: inset(40% 0 20% 0) }
-  80% { clip-path: inset(20% 0 50% 0) }
-  85% { clip-path: inset(10% 0 60% 0) }
-  90% { clip-path: inset(15% 0 55% 0) }
-  95% { clip-path: inset(25% 0 35% 0) }
-  100% { clip-path: inset(30% 0 40% 0) }
-}
-.animate-glitch-after { animation: glitch var(--after-duration) infinite linear alternate-reverse }
-.animate-glitch-before { animation: glitch var(--before-duration) infinite linear alternate-reverse }
-
-/* Size Guard Warning Styles */
-.size-guard-warning {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-  backdrop-filter: blur(10px);
+*::-webkit-scrollbar {
+  display: none;
 }
 
-.size-guard-warning::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
-  pointer-events: none;
+/* Optimize animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto !important;
+  }
 }
 
-/* Size Guard Animations */
+/* Optimize for high-performance devices */
+@media (prefers-reduced-motion: no-preference) {
+  .optimize-gpu {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+/* Smooth scrolling with performance optimization */
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 6rem; /* Increased for better visibility */
+}
+
+/* Ensure sections are accessible for hash navigation */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Force enable scrolling */
+body, html {
+  overflow-y: auto !important;
+  height: auto !important;
+}
+
+/* Smooth hover animations for chips */
+.chip-hover {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.chip-hover:hover {
+  transform: scale(1.05) translateY(-4px);
+  filter: brightness(1.1) saturate(1.2);
+}
+
+/* Image quality improvements */
+img, [data-nextjs-image] {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* High DPI display optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img, [data-nextjs-image] {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Additional body optimizations */
+
+/* Performance optimized animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-/* Delay utilities for staggered animations */
-.delay-1000 {
-  animation-delay: 1s;
-}
-
-.delay-2000 {
-  animation-delay: 2s;
-}
-
-/* Enhanced pulse animation */
-@keyframes enhancedPulse {
-  0%, 100% {
-    opacity: 0.1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.3;
-    transform: scale(1.1);
-  }
-}
-
-.animate-pulse {
-  animation: enhancedPulse 3s ease-in-out infinite;
-}
-
-/* Glass Effect Text */
-.glass-text {
-  position: relative;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 16px 24px;
-  color: #ffffff;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  animation: glassGlow 3s ease-in-out infinite;
-}
-
-.glass-text::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-  border-radius: 12px;
-  animation: glassShine 4s ease-in-out infinite;
-}
-
-@keyframes glassGlow {
-  0%, 100% {
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 0 20px rgba(255, 0, 0, 0.3);
-  }
-  50% {
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 0 40px rgba(255, 0, 0, 0.6);
-  }
-}
-
-@keyframes glassShine {
-  0% {
+@keyframes slideIn {
+  from {
     transform: translateX(-100%);
   }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
   50% {
-    transform: translateX(100%);
+    opacity: 0.5;
+  }
+}
+
+/* Optimized animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.8s ease-out;
+}
+
+.animate-pulse-optimized {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Performance optimized loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
   }
   100% {
-    transform: translateX(100%);
+    background-position: -200% 0;
   }
 }
 
-/* Glass Card Effect */
-.glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+/* Optimize images for better performance */
+img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
-.glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    0 0 20px rgba(255, 255, 255, 0.1);
+/* Optimize canvas elements */
+canvas {
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
-/* One-shot initial loader (pure CSS) */
+/* Optimize video elements */
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Performance optimized focus styles */
+.focus-visible:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Optimize for dark mode */
+@media (prefers-color-scheme: dark) {
+  .loading-skeleton {
+    background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+    background-size: 200% 100%;
+  }
+}
+
+/* Optimize for print */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  a, a:visited {
+    text-decoration: underline;
+  }
+  
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Optimize for high DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Optimize for mobile devices */
+@media (max-width: 768px) {
+  .optimize-mobile {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* Optimize for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .optimize-touch {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Performance optimized scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Initial Loader */
 .initial-loader {
   position: fixed;
   inset: 0;
-  z-index: 50;
-  background: #000;
+  background: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: loaderFadeOut 1.2s ease forwards; /* 1s visible + 0.2s fade */
+  z-index: 9999;
+  animation: fadeOut 1s ease-in-out 1s forwards;
 }
-@keyframes loaderFadeOut {
-  0% { opacity: 1 }
-  83% { opacity: 1 }
-  100% { opacity: 0; visibility: hidden }
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Optimize for reduced data usage */
+@media (prefers-reduced-data: reduce) {
+  img, video {
+    animation: none !important;
+  }
+  
+  .animate-fade-in,
+  .animate-slide-in,
+  .animate-pulse-optimized {
+    animation: none !important;
+  }
 }

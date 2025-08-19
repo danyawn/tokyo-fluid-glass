@@ -56,18 +56,40 @@ export default function FluidGlass({
     ...modeProps
   } = rawOverrides;
   return (
-    <Canvas camera={{ position: [0, 0, 20], fov: 15 }} gl={{ alpha: true }} className="!block w-full h-[60vh] md:h-[70vh] lg:h-[80vh] scrollbar-hide">
-      <ScrollControls damping={0.2} pages={2} distance={0.4}>
-        {mode === 'bar' && <NavItems items={navItems} />}
-        <Wrapper modeProps={modeProps}>
-          <Scroll>
-            <Typography />
-            <Images />
-          </Scroll>
-          <Preload />
-        </Wrapper>
-      </ScrollControls>
-    </Canvas>
+    <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] rounded-lg border border-gray-300/30 bg-white overflow-hidden isolate mb-8" style={{ zIndex: 1 }}>
+      <Canvas 
+        camera={{ position: [0, 0, 20], fov: 15 }} 
+        gl={{ 
+          alpha: false,
+          antialias: true,
+          preserveDrawingBuffer: false
+        }} 
+        className="!block w-full h-full scrollbar-hide"
+        style={{ background: 'white' }}
+        onPointerMove={(e) => {
+          // Reset cursor to default when moving over canvas
+          document.body.style.cursor = 'default';
+        }}
+        onPointerLeave={() => {
+          // Reset cursor when leaving canvas
+          document.body.style.cursor = 'default';
+        }}
+      >
+        {/* White background */}
+        <color attach="background" args={['#ffffff']} />
+        
+        <ScrollControls damping={0.2} pages={2} distance={0.4}>
+          {mode === 'bar' && <NavItems items={navItems} />}
+          <Wrapper modeProps={modeProps}>
+            <Scroll>
+              <Typography />
+              <Images />
+            </Scroll>
+            <Preload />
+          </Wrapper>
+        </ScrollControls>
+      </Canvas>
+    </div>
   );
 }
 
@@ -115,19 +137,19 @@ const ModeWrapper = memo(function ModeWrapper({
       : followPointer
         ? (pointer.y * v.height) / 2
         : 0;
-    if (ref.current) {
-      easing.damp3(ref.current.position, [destX, destY, 15], 0.15, delta);
-      if (modeProps.scale == null) {
-        const maxWorld = v.width * 0.9;
-        const desired = maxWorld / geoWidthRef.current;
-        ref.current.scale.setScalar(Math.min(0.15, desired));
+          if (ref.current) {
+        easing.damp3(ref.current.position, [destX, destY, 15], 0.15, delta);
+        if (modeProps.scale == null) {
+          const maxWorld = v.width * 0.7; // Reduced from 0.9 to 0.7 for better proportion
+          const desired = maxWorld / geoWidthRef.current;
+          ref.current.scale.setScalar(Math.min(0.12, desired)); // Reduced from 0.15 to 0.12
+        }
       }
-    }
 
     gl.setRenderTarget(buffer);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
-    gl.setClearColor(0x000000, 0); // Transparent background
+    gl.setClearColor(0xffffff, 1); // White background
   });
 
   const {
@@ -141,15 +163,22 @@ const ModeWrapper = memo(function ModeWrapper({
 
   return (
     <>
+      {/* White background plane */}
+      <mesh scale={[vp.width * 2, vp.height * 2, 1]} position={[0, 0, -1]}>
+        <planeGeometry />
+        <meshBasicMaterial color="#ffffff" />
+      </mesh>
+      
       {createPortal(children, scene)}
-      <mesh scale={[vp.width, vp.height, 1]}>
+      <mesh scale={[vp.width, vp.height, 1]} position={[0, 0, 0]}>
         <planeGeometry />
         <meshBasicMaterial map={buffer.texture} transparent />
       </mesh>
       <mesh
         ref={ref}
-        scale={scale ?? 0.15}
+        scale={scale ?? 0.12}
         rotation-x={Math.PI / 2}
+        position={[0, 0, 1]}
         geometry={(nodes[geometryKey] as THREE.Mesh)?.geometry}
       >
         <MeshTransmissionMaterial
@@ -271,22 +300,21 @@ function NavItems({ items }: NavItemsProps) {
         <Text
           key={label}
           fontSize={fontSize}
-          color="white"
+          color="#1f2937"
           anchorX="center"
           anchorY="middle"
           font=""
-          outlineWidth={0}
+          outlineWidth={0.02}
           outlineBlur="20%"
-          outlineColor="#000"
-          outlineOpacity={0.5}
-          // depthTest is not a valid prop for drei Text, remove it
+          outlineColor="#ffffff"
+          outlineOpacity={0.8}
           renderOrder={10}
           onClick={(e) => {
             e.stopPropagation();
             handleNavigate(link);
           }}
           onPointerOver={() => (document.body.style.cursor = 'pointer')}
-          onPointerOut={() => (document.body.style.cursor = 'auto')}
+          onPointerOut={() => (document.body.style.cursor = 'default')}
         >
           {label}
         </Text>
@@ -354,11 +382,11 @@ function Typography() {
         font=""
         fontSize={0.4}
         letterSpacing={-0.05}
-        outlineWidth={0}
+        outlineWidth={0.02}
         outlineBlur="20%"
-        outlineColor="#000"
-        outlineOpacity={0.5}
-        color="white"
+        outlineColor="#ffffff"
+        outlineOpacity={0.8}
+        color="#1f2937"
         anchorX="center"
         anchorY="middle"
       >

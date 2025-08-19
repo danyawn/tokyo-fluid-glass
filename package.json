@@ -6,7 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build",
+    "build:analyze": "cross-env ANALYZE=true next build",
+    "performance": "lighthouse http://localhost:3000 --output=json --output-path=./lighthouse-report.json",
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "bundle-analyzer": "cross-env BUNDLE_ANALYZE=true next build"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.3",
@@ -21,13 +26,17 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.16",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5",
+    "cross-env": "^7.0.3",
+    "lighthouse": "^11.6.0",
+    "sharp": "^0.33.2"
   }
 }
