@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import GlassSurface from "./GlassSurface";
 
 interface GlassSurfaceDemoProps {
@@ -14,16 +15,16 @@ const GlassSurfaceDemo: React.FC<GlassSurfaceDemoProps> = ({
   const commonGlassProps = {
     borderRadius: 50,
     borderWidth: 0.07,
-    brightness: 50,
-    opacity: 0.93,
-    blur: 11,
-    backgroundOpacity: 0.1,
-    saturation: 1,
-    distortionScale: -180,
-    redOffset: 0,
-    greenOffset: 10,
-    blueOffset: 20,
-    displace: 0.5,
+    brightness: 80,
+    opacity: 0.95,
+    blur: 15,
+    backgroundOpacity: 0.15,
+    saturation: 1.2,
+    distortionScale: -200,
+    redOffset: 5,
+    greenOffset: 15,
+    blueOffset: 25,
+    displace: 0.8,
   };
 
   const scrollImages = [
@@ -82,7 +83,7 @@ const GlassSurfaceDemo: React.FC<GlassSurfaceDemoProps> = ({
       {/* Demo Container */}
       <div
         ref={scrollContainerRef}
-        className="relative h-[600px] overflow-y-auto rounded-lg border border-white/10 bg-black scrollbar-hide"
+        className="relative h-[600px] overflow-y-auto rounded-lg border border-gray-300/30 bg-white scrollbar-hide"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
@@ -95,7 +96,7 @@ const GlassSurfaceDemo: React.FC<GlassSurfaceDemoProps> = ({
 
         {/* Scrollable Content */}
         <div className="relative flex flex-col items-center gap-24 py-32">
-          <h2 className="text-4xl font-black text-gray-300 whitespace-nowrap">
+          <h2 className="text-4xl font-black text-gray-800 whitespace-nowrap">
             Try scrolling.
           </h2>
 
@@ -103,12 +104,17 @@ const GlassSurfaceDemo: React.FC<GlassSurfaceDemoProps> = ({
 
           {scrollImages.map((item, index) => (
             <div key={index} className="relative">
-              <img
-                src={item.src}
-                alt={item.text}
-                className="w-[500px] h-auto rounded-2xl object-cover grayscale"
-              />
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-black text-center leading-none text-5xl min-w-[300px] z-5 mix-blend-overlay">
+              <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src={item.src}
+                  alt={item.text}
+                  fill
+                  sizes="500px"
+                  className="object-cover"
+                  quality={90}
+                />
+              </div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-black text-center leading-none text-5xl min-w-[300px] z-5 mix-blend-overlay drop-shadow-lg">
                 {item.text}
               </div>
             </div>

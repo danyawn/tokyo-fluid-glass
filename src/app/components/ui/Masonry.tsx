@@ -89,8 +89,8 @@ interface MasonryProps {
 
 const Masonry: React.FC<MasonryProps> = ({
   items,
-  ease = 'power3.out',
-  duration = 0.6,
+  // ease = 'power3.out', // Unused variable - removed
+  // duration = 0.6, // Unused variable - removed
   stagger = 0.05,
   animateFrom = 'bottom',
   scaleOnHover = true,

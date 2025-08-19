@@ -1,0 +1,15 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    // Disable non-critical warnings for better development experience
+    "@next/next/no-img-element": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    
+    // Keep important performance and security rules
+    "@next/next/no-html-link-for-pages": "error",
+    "react/no-unescaped-entities": "error",
+    "react/display-name": "error"
+  }
+}
