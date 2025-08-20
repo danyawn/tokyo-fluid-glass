@@ -1,0 +1,157 @@
+# Comment Rules for Code Documentation
+# Guidelines for writing minimal, essential comments
+
+## 1. Comment Principles
+
+- **Minimal comments** - only comment when necessary
+- Use a maximum of 5-10 meaningful comments per file
+- Write comments that explain **why**, not **what** the code does
+- Keep comments concise and actionable
+- Update comments when code changes
+- Use English for all comments
+
+## 2. Comment Format
+
+- Use **section comments** with `// ===== SECTION NAME =====` format for major code blocks only
+- Use `//` for single-line comments
+- Use `/** */` for JSDoc documentation (only for complex functions)
+
+## 3. When to Comment
+
+### Section Comments - ONLY for major blocks
+```typescript
+// ===== AUTHENTICATION HANDLER =====
+// ===== STATE MANAGEMENT =====
+// ===== API ENDPOINTS =====
+// ===== UTILITY FUNCTIONS =====
+```
+
+### Inline Comments - ONLY for complex variables
+```typescript
+// Complex business logic that needs explanation
+const userPermissions = calculatePermissions(user.role, user.department);
+
+// Non-obvious variable names
+const isEligibleForDiscount = user.age >= 65 && user.membershipYears >= 5;
+
+// Skip obvious variables
+const user = await getUser(id); // ❌ Don't comment obvious code
+const email = user.email; // ❌ Don't comment obvious code
+```
+
+### Function Comments - ONLY for complex functions
+```typescript
+// ❌ Don't comment simple functions
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString();
+};
+
+// ✅ Comment complex functions with business logic
+/**
+ * Calculates user discount based on age, membership, and purchase history
+ * @param user - User object with age and membership data
+ * @param purchaseHistory - Array of previous purchases
+ * @returns Discount percentage (0-100)
+ */
+const calculateUserDiscount = (user: User, purchaseHistory: Purchase[]) => {
+  // Complex business logic here
+};
+```
+
+## 4. What NOT to Comment
+
+- ❌ Don't comment obvious code
+- ❌ Don't repeat what the code already says
+- ❌ Don't comment simple functions
+- ❌ Don't comment obvious variable assignments
+- ❌ Don't use comments to explain bad code (fix the code instead)
+- ❌ Don't leave outdated comments
+
+## 5. Comment Guidelines
+
+- **Explain complex business logic** that isn't immediately obvious
+- **Document important decisions** and their rationale
+- **Warn about potential issues** or edge cases
+- **Document API contracts** only when complex
+- **Skip obvious implementations**
+
+## 6. Examples
+
+### Good Comments (Minimal)
+```typescript
+// ===== AUTHENTICATION HANDLER =====
+const login = async (email: string, password: string) => {
+  // Validate credentials and create session
+  const user = await validateUser(email, password);
+  
+  // Set secure cookies for session management
+  setSecureCookie('session', generateToken(user));
+};
+
+// Complex business rule that needs explanation
+const isEligibleForPromotion = user.performanceScore >= 85 && 
+                              user.attendanceRate >= 95 &&
+                              user.tenure >= 2; // Minimum 2 years tenure
+```
+
+### Bad Comments (Too Many)
+```typescript
+// ❌ Too many obvious comments
+const user = await getUser(id); // Get user from database
+const email = user.email; // Get user email
+const name = user.name; // Get user name
+const age = user.age; // Get user age
+
+// ❌ Commenting simple functions
+const add = (a: number, b: number) => {
+  return a + b; // Add two numbers
+};
+```
+
+## 7. File-Specific Guidelines
+
+### Types Files
+- ❌ Don't comment simple interfaces
+- ✅ Comment complex union types or conditional types
+- ✅ Comment when types represent business concepts
+
+```typescript
+// ✅ Complex type that needs explanation
+type UserStatus = 'active' | 'inactive' | 'suspended' | 'pending_verification';
+
+// ❌ Don't comment simple types
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+```
+
+### Utils Files
+- ❌ Don't comment simple utility functions
+- ✅ Comment complex algorithms or business logic
+- ✅ Comment when function has non-obvious behavior
+
+```typescript
+// ✅ Complex utility that needs explanation
+const calculateTax = (amount: number, region: string, exemptions: string[]) => {
+  // Complex tax calculation logic
+};
+
+// ❌ Don't comment simple utilities
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+};
+```
+
+## 8. Summary
+
+- **Section comments**: Only for major code blocks
+- **Inline comments**: Only for complex variables or non-obvious logic
+- **Function comments**: Only for complex functions with business logic
+- **Keep it minimal**: Less is more when it comes to comments
+- **Focus on why**: Explain the reasoning, not the implementation
+description:
+globs:
+alwaysApply: true
+---

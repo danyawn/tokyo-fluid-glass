@@ -1,0 +1,277 @@
+---
+alwaysApply: true
+---
+
+# Library Rules
+# Library-Specific Guidelines for Project Dependencies
+
+## 1. Material-UI (MUI) Guidelines
+
+### Core MUI Usage
+- Use **sx prop** for component-specific styling
+- Implement **theme customization** for brand consistency
+- Use **MUI's responsive breakpoints** for mobile-first design
+- Leverage **MUI's built-in accessibility** features
+
+### MUI Configuration
+- Configure MUI with **@emotion/cache** and **@emotion/react** for Next.js
+- Use **@mui/material-nextjs** for proper SSR support
+- **ALWAYS** check [MUI Migration Guides](https://mui.com/material-ui/migration/) for version updates
+- Use **createTheme** instead of deprecated **createMuiTheme**
+- Replace deprecated **Hidden** component with **sx prop** or **useMediaQuery**
+
+### MUI Best Practices
+```typescript
+// ✅ Use theme-based styling
+<Button variant="contained" color="primary" sx={{ m: 2 }}>
+  Action
+</Button>
+
+// ✅ Use responsive breakpoints
+<Box sx={{ 
+  display: { xs: 'block', md: 'flex' },
+  flexDirection: { xs: 'column', md: 'row' }
+}}>
+```
+
+### Documentation Links
+- [Material UI](https://mui.com/material-ui/)
+- [MUI Migration Guides](https://mui.com/material-ui/migration/)
+
+## 2. React Hook Form Guidelines
+
+### Core Usage
+- Use **zodResolver** for schema validation
+- Implement **proper error handling** with form state
+- Use **watch** and **setValue** for dynamic form behavior
+- Implement **form validation modes** appropriately
+
+### React Hook Form Best Practices
+```typescript
+// ✅ Use with Zod validation
+const { register, handleSubmit, formState: { errors } } = useForm({
+  resolver: zodResolver(schema)
+});
+
+// ✅ Proper error handling
+<TextField
+  {...register('email')}
+  error={!!errors.email}
+  helperText={errors.email?.message}
+/>
+```
+
+### Documentation Links
+- [React Hook Form](https://react-hook-form.com/)
+
+## 3. Zod Validation Guidelines
+
+### Core Usage
+- Use **latest Zod syntax** and features
+- Implement **proper error messages** in Indonesian
+- Use **refine** for custom validation logic
+- Create **type-safe schemas**
+
+### Zod Best Practices
+```typescript
+// ✅ Create reusable schemas
+const emailSchema = z.string().email("Format email tidak valid");
+const passwordSchema = z.string().min(6, "Password minimal 6 karakter");
+
+// ✅ Use refine for custom validation
+const userSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+  confirmPassword: z.string()
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Password tidak cocok",
+  path: ["confirmPassword"]
+});
+```
+
+### Documentation Links
+- [Zod](https://zod.dev/)
+
+## 4. Axios Configuration Guidelines
+
+### Core Usage
+- Use **interceptors** for global request/response handling
+- Implement **proper error mapping** to user-friendly messages
+- Use **withCredentials** for secure authentication
+- Configure **timeout** and **retry logic** appropriately
+
+### Axios Best Practices
+```typescript
+// ✅ Configure interceptors
+axiosInstance.interceptors.request.use((config) => {
+  // Add auth headers, logging, etc.
+  return config;
+});
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Handle errors globally
+    return Promise.reject(error);
+  }
+);
+```
+
+### Documentation Links
+- [Axios](https://axios-http.com/)
+
+## 5. CASL Permissions Guidelines
+
+### Core Usage
+- Use **latest CASL syntax** and patterns
+- Implement **proper ability definitions**
+- Use **type-safe** permission checking
+- Define **granular permissions**
+
+### CASL Best Practices
+```typescript
+// ✅ Define abilities
+const ability = defineAbility((can, cannot) => {
+  can('read', 'User');
+  can('update', 'User', { id: user.id });
+  can('manage', 'all', { role: 'admin' });
+});
+
+// ✅ Type-safe checking
+if (ability.can('update', 'User', { id: userId })) {
+  // Allow update
+}
+```
+
+### Documentation Links
+- [CASL](https://casl.js.org/)
+
+## 6. React Hot Toast Guidelines
+
+### Core Usage
+- Use for **user notifications** and feedback
+- Implement **consistent toast styling**
+- Handle **success, error, and info** messages
+- Use **proper positioning** and timing
+
+### React Hot Toast Best Practices
+```typescript
+// ✅ Consistent usage
+import toast from 'react-hot-toast';
+
+// Success notification
+toast.success('Data berhasil disimpan');
+
+// Error notification
+toast.error('Terjadi kesalahan');
+
+// Loading notification
+const loadingToast = toast.loading('Memproses...');
+toast.dismiss(loadingToast);
+```
+
+### Documentation Links
+- [React Hot Toast](https://react-hot-toast.com/)
+
+## 7. Iconify Guidelines
+
+### Core Usage
+- Use **@iconify/react** for consistent iconography
+- Choose **appropriate icon sets**
+- Maintain **consistent icon sizing**
+- Use **semantic icon names**
+
+### Iconify Best Practices
+```typescript
+// ✅ Consistent icon usage
+import { Icon } from '@iconify/react';
+
+<Icon icon="mdi:home" width={24} height={24} />
+<Icon icon="mdi:account" className="text-primary" />
+```
+
+### Documentation Links
+- [Iconify](https://iconify.design/)
+
+## 8. Next.js Specific Guidelines
+
+### App Router Usage
+- Use **Server Components** by default
+- Add `"use client"` only when necessary
+- Implement **proper metadata** for SEO
+- Use **dynamic imports** for code splitting
+
+### Next.js Best Practices
+```typescript
+// ✅ Server Component
+export default function Page() {
+  return <div>Server Component</div>;
+}
+
+// ✅ Client Component
+"use client";
+export default function ClientComponent() {
+  const [state, setState] = useState();
+  return <div>Client Component</div>;
+}
+
+// ✅ Metadata
+export const metadata = {
+  title: 'Page Title',
+  description: 'Page description'
+};
+```
+
+### Documentation Links
+- [Next.js](https://nextjs.org/docs)
+
+## 9. TypeScript Guidelines
+
+### Core Usage
+- Use **strict mode** configuration
+- Implement **proper type definitions**
+- Use **generic types** appropriately
+- Avoid **any** type, prefer **unknown**
+
+### TypeScript Best Practices
+```typescript
+// ✅ Proper type definitions
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+// ✅ Generic types
+function createApiResponse<T>(data: T): ApiResponse<T> {
+  return { success: true, data };
+}
+
+// ✅ Type guards
+function isUser(obj: unknown): obj is User {
+  return typeof obj === 'object' && obj !== null && 'id' in obj;
+}
+```
+
+## 10. Dependency Management
+
+### Version Management
+- **Always** check for breaking changes before updates
+- **Test** new versions in development first
+- **Document** migration steps for major updates
+- **Keep** dependencies updated for security
+
+### Security Considerations
+- **Regularly audit** dependencies for vulnerabilities
+- **Use** `npm audit` or `yarn audit`
+- **Update** dependencies with security patches
+- **Monitor** dependency health
+
+### Documentation Links
+- [npm](https://docs.npmjs.com/)
+- [yarn](https://yarnpkg.com/)
+- [pnpm](https://pnpm.io/)
+description:
+globs:
+alwaysApply: false
+---

@@ -1,0 +1,102 @@
+# Project Structure Guide
+
+## Main Entry Points
+
+The main entry point is [app/layout.tsx](mdc:src/app/layout.tsx), which loads configuration from [themes/theme.ts](mdc:src/themes/theme.ts) and [configs/axios.config.ts](mdc:src/configs/axios.config.ts).
+
+## Folder Structure
+
+### App Router Structure
+```
+src/app/
+├── (auth-layout)/          # Protected routes with authentication
+│   ├── antrean/           # Queue management feature
+│   ├── dashboard/         # Main dashboard
+│   ├── mcu/              # Medical check-up feature
+│   └── layout.tsx        # Auth layout wrapper
+├── login/                 # Authentication pages
+│   ├── _components/      # Login-specific components
+│   ├── _hooks/          # Login-specific hooks
+│   ├── _schemas/        # Login validation schemas
+│   └── page.tsx         # Login page
+├── layout.tsx            # Root layout
+├── page.tsx             # Home page
+└── globals.css          # Global styles
+```
+
+### Core Directories
+```
+src/
+├── components/           # Shared/reusable components
+│   ├── actions/         # Action buttons and controls
+│   ├── core/           # Core UI components
+│   ├── guards/         # Route protection components
+│   ├── layouts/        # Layout components
+│   └── navigation/     # Navigation components
+├── configs/            # Configuration files
+│   ├── axios.config.ts # HTTP client configuration
+│   ├── can.ts         # CASL ability configuration
+│   └── casl.config.ts # CASL setup
+├── constants/          # Application constants
+│   └── auth.constant.tsx # Authentication constants
+├── context/           # React context providers
+│   └── auth.context.tsx # Authentication context
+├── hooks/             # Shared custom hooks
+│   └── usePermissions.ts # Permission management
+├── services/          # API services
+│   └── auth.services.ts # Authentication services
+├── themes/            # MUI theme configuration
+│   ├── colors.ts      # Color definitions
+│   ├── components.ts  # Component theme overrides
+│   ├── index.ts       # Theme exports
+│   ├── theme.ts       # Main theme configuration
+│   └── typography.ts  # Typography definitions
+├── types/             # TypeScript type definitions
+│   ├── auth.types.ts  # Authentication types
+│   ├── common.types.ts # Common types
+│   └── index.ts       # Type exports
+└── utils/             # Utility functions
+    └── message.utils.ts # Message handling utilities
+```
+
+## Key Configuration Files
+
+### Theme Configuration
+- [themes/theme.ts](mdc:src/themes/theme.ts) - Main MUI theme with custom colors and typography
+- [themes/colors.ts](mdc:src/themes/colors.ts) - Color palette definitions
+- [themes/typography.ts](mdc:src/themes/typography.ts) - Typography variants
+
+### API Configuration
+- [configs/axios.config.ts](mdc:src/configs/axios.config.ts) - HTTP client with interceptors
+- [services/auth.services.ts](mdc:src/services/auth.services.ts) - Authentication API calls
+
+### Authentication
+- [context/auth.context.tsx](mdc:src/context/auth.context.tsx) - Global auth state management
+- [constants/auth.constant.tsx](mdc:src/constants/auth.constant.tsx) - Auth-related constants
+
+### Types
+- [types/auth.types.ts](mdc:src/types/auth.types.ts) - Authentication type definitions
+- [types/common.types.ts](mdc:src/types/common.types.ts) - Common type definitions
+
+## Feature Organization
+
+Each feature follows this structure:
+```
+app/feature/
+├── _components/     # Feature-specific components
+├── _hooks/         # Feature-specific hooks
+├── _schemas/       # Feature-specific validation schemas
+└── page.tsx        # Minimal route component
+```
+
+## Development Workflow
+
+- Use **Turbopack** for faster development builds
+- Implement **hot reload** for efficient development
+- **No need to build** after code generation - use hot reload for immediate feedback
+- Use **environment variables** for configuration
+- Follow **TypeScript strict mode** for type safety
+description:
+globs:
+alwaysApply: false
+---

@@ -1,0 +1,311 @@
+# UI Generation Rules
+# Material UI Component Styling Guidelines
+
+## 1. Theme-Based Styling
+
+- **ALWAYS** use existing styling from [themes/theme.ts](mdc:src/themes/theme.ts) first
+- Use **predefined color palette** from theme:
+  ```typescript
+  // ✅ Use theme colors
+  color="primary" | "secondary" | "tertiary" | "error" | "success" | "warning"
+  color="placeholder" | "gray" | "lightGrey" | "darkGrey" | "info" | "inherit"
+  ```
+- Use **predefined typography variants** from theme:
+  ```typescript
+  // ✅ Use theme typography
+  variant="title_medium" | "subtitle_medium" | "body_16_regular" | "body_14_medium"
+  ```
+- Use **custom shadow** from theme:
+  ```typescript
+  // ✅ Use theme shadow
+  sx={{ boxShadow: theme.customShadow.drop }}
+  ```
+
+## 2. Avoid Inline Styling
+
+- ❌ **Don't use excessive inline styling**
+- ❌ **Don't override theme colors with hardcoded values**
+- ❌ **Don't use complex sx props for simple styling**
+
+### Bad Examples:
+```typescript
+// ❌ Too much inline styling
+<Box sx={{
+  backgroundColor: '#f5f5f5',
+  borderRadius: '8px',
+  padding: '16px',
+  margin: '8px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+  border: '1px solid #e0e0e0'
+}}>
+```
+
+### Good Examples:
+```typescript
+// ✅ Use theme-based styling
+<Paper elevation={1} sx={{ p: 2, m: 1 }}>
+  <Typography variant="body_16_regular" color="primary">
+    Content
+  </Typography>
+</Paper>
+```
+
+## 3. Simple and On-Point Styling
+
+### Color Scheme (Based on Klinik Adera Logo)
+- **Primary Blue**: Use for main actions, headers, and important elements
+- **White Background**: Clean, medical/professional appearance
+- **Subtle Grays**: For secondary text and borders
+- **Minimal Accents**: Use sparingly for highlights
+
+### Layout Principles
+- **Clean and Minimal**: Avoid cluttered designs
+- **Professional Medical**: Trustworthy and reliable appearance
+- **Consistent Spacing**: Use theme spacing (4px base unit)
+- **Clear Hierarchy**: Use typography variants for visual hierarchy
+
+## 4. Component Usage Guidelines
+
+### Typography
+```typescript
+// ✅ Use theme typography variants
+<Typography variant="title_medium" color="primary">
+  Klinik Adera
+</Typography>
+
+<Typography variant="body_16_regular" color="textSecondary">
+  Professional healthcare services
+</Typography>
+```
+
+### Buttons
+```typescript
+// ✅ Use theme button styling
+<Button variant="contained" color="primary">
+  Primary Action
+</Button>
+
+<Button variant="outlined" color="primary">
+  Secondary Action
+</Button>
+```
+
+### Cards/Paper
+```typescript
+// ✅ Use theme paper styling
+<Paper elevation={1} sx={{ p: 3 }}>
+  <Typography variant="subtitle_medium" color="primary" gutterBottom>
+    Card Title
+  </Typography>
+  <Typography variant="body_14_regular" color="textSecondary">
+    Card content
+  </Typography>
+</Paper>
+```
+
+### Forms
+```typescript
+// ✅ Use theme form styling
+<TextField
+  variant="outlined"
+  color="primary"
+  sx={{ mb: 2 }}
+  InputProps={{
+    sx: { borderRadius: 1 }
+  }}
+/>
+```
+
+## 5. Spacing and Layout
+
+### Use Theme Spacing
+```typescript
+// ✅ Use theme spacing (4px base unit)
+sx={{ p: 2 }}    // 8px padding
+sx={{ m: 3 }}    // 12px margin
+sx={{ px: 4 }}   // 16px horizontal padding
+sx={{ py: 1 }}   // 4px vertical padding
+```
+
+### Layout with Stack Component
+```typescript
+// ✅ Use Stack for flexible layouting
+<Stack spacing={2} direction="column">
+  <Typography variant="title_medium">Title</Typography>
+  <Typography variant="body_14_regular">Content</Typography>
+</Stack>
+
+// ✅ Responsive Stack layout
+<Stack 
+  spacing={2} 
+  direction={{ xs: 'column', md: 'row' }}
+  alignItems="center"
+>
+  <Button variant="contained">Action 1</Button>
+  <Button variant="outlined">Action 2</Button>
+</Stack>
+```
+
+### Why Use Stack?
+- **More flexible** than Box with flex properties
+- **Built-in spacing** with `spacing` prop
+- **Responsive direction** with breakpoint objects
+- **Cleaner code** and better readability
+- **Consistent spacing** using theme spacing system
+
+### Responsive Layout
+```typescript
+// ✅ Use Stack for responsive layouts
+<Stack 
+  spacing={3}
+  direction={{ xs: 'column', md: 'row' }}
+  alignItems={{ xs: 'stretch', md: 'center' }}
+  justifyContent="space-between"
+>
+  <Paper elevation={1} sx={{ p: 2, flex: 1 }}>
+    Content 1
+  </Paper>
+  <Paper elevation={1} sx={{ p: 2, flex: 1 }}>
+    Content 2
+  </Paper>
+</Stack>
+```
+
+## 6. Brand Consistency
+
+### Logo Integration
+- Use **blue color scheme** matching Klinik Adera logo
+- Maintain **professional medical appearance**
+- Keep **clean and minimal** design approach
+- Use **consistent typography** hierarchy
+
+### Color Usage
+```typescript
+// ✅ Brand-consistent colors
+color="primary"        // Main brand blue
+color="textSecondary"  // Secondary text
+color="placeholder"    // Form placeholders
+color="gray"          // Subtle borders/backgrounds
+```
+
+## 7. Common Patterns
+
+### Header Section
+```typescript
+<Stack spacing={1} sx={{ mb: 3 }}>
+  <Typography variant="title_medium" color="primary">
+    Section Title
+  </Typography>
+  <Typography variant="body_14_regular" color="textSecondary">
+    Section description
+  </Typography>
+</Stack>
+```
+
+### Content Card
+```typescript
+<Paper elevation={1} sx={{ p: 3, mb: 2 }}>
+  <Stack spacing={2}>
+    <Typography variant="subtitle_medium" color="primary">
+      Card Title
+    </Typography>
+    <Typography variant="body_14_regular" color="textSecondary">
+      Card content goes here
+    </Typography>
+  </Stack>
+</Paper>
+```
+
+### Action Section
+```typescript
+<Stack 
+  direction="row" 
+  spacing={2} 
+  justifyContent="flex-end" 
+  sx={{ mt: 3 }}
+>
+  <Button variant="outlined" color="primary">
+    Cancel
+  </Button>
+  <Button variant="contained" color="primary">
+    Save
+  </Button>
+</Stack>
+```
+
+### Form Layout
+```typescript
+<Stack spacing={3}>
+  <TextField
+    label="Email"
+    variant="outlined"
+    color="primary"
+  />
+  <TextField
+    label="Password"
+    type="password"
+    variant="outlined"
+    color="primary"
+  />
+  <Stack direction="row" spacing={2} justifyContent="flex-end">
+    <Button variant="outlined" color="primary">
+      Cancel
+    </Button>
+    <Button variant="contained" color="primary">
+      Submit
+    </Button>
+  </Stack>
+</Stack>
+```
+
+## 8. Avoid Anti-Patterns
+
+### ❌ Don't Do This:
+```typescript
+// ❌ Hardcoded colors
+sx={{ color: '#1976d2', backgroundColor: '#f5f5f5' }}
+
+// ❌ Complex inline styling
+sx={{ 
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  borderRadius: 3,
+  border: 0,
+  color: 'white',
+  height: 48,
+  padding: '0 30px',
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)'
+}}
+
+// ❌ Overriding theme unnecessarily
+sx={{ fontSize: '16px', fontWeight: 'bold' }}
+```
+
+### ✅ Do This Instead:
+```typescript
+// ✅ Use theme colors
+color="primary"
+
+// ✅ Use theme components
+<Button variant="contained" color="primary">
+
+// ✅ Use theme typography
+variant="body_16_medium"
+```
+
+## 9. Performance Considerations
+
+- Use **theme-based styling** for better performance
+- Avoid **complex sx props** for simple styling
+- Use **MUI components** instead of custom styled divs
+- Leverage **theme customization** for consistent styling
+
+## 10. Accessibility
+
+- Use **semantic HTML** with MUI components
+- Maintain **proper color contrast** using theme colors
+- Use **appropriate typography variants** for hierarchy
+- Ensure **keyboard navigation** support
+description:
+globs:
+alwaysApply: false
+---

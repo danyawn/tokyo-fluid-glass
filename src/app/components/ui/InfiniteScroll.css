@@ -1,0 +1,56 @@
+.infinite-scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Removed dark gradient layers to better match the bright theme */
+
+.infinite-scroll-container {
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: contain;
+  padding-inline: 1rem;
+  cursor: grab;
+  transform-origin: center center;
+}
+
+.infinite-scroll-item {
+  --accent-color: #ffffff;
+  border-radius: 16px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  /* Softer glass border */
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(6px) saturate(1.1);
+  -webkit-backdrop-filter: blur(6px) saturate(1.1);
+  /* Subtle glow to blend with theme */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  user-select: none;
+  box-sizing: border-box;
+}
+
+/* Gradient stroke for a soft iridescent edge */
+.infinite-scroll-item::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.06));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+

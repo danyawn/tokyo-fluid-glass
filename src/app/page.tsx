@@ -5,6 +5,10 @@ import Image from 'next/image';
 import Hero from './components/ui/Hero';
 import TextPressure from './components/ui/TextPressure';
 import GlitchText from './components/ui/GlitchText';
+const InfiniteScroll = dynamic(() => import('./components/ui/InfiniteScroll'), {
+  ssr: false,
+  loading: () => <div className="h-[500px] w-[500px] mx-auto bg-black/20 rounded-lg animate-pulse" />
+});
 
 // Lazy load heavy components
 const Iridescence = dynamic(() => import('./components/Iridescence'), {
@@ -209,6 +213,144 @@ export default function Page() {
                 </Card>
               </CardSwap>
             </Suspense>
+          </div>
+        </div>
+      </section>
+
+      {/* Infinite Scroll Section */}
+      <section className="relative z-10 py-24 pointer-events-none" data-reveal>
+        <div className="max-w-6xl mx-auto px-4 pointer-events-auto">
+          <h2 className="text-3xl md:text-5xl font-bold text-white text-center">Infinite Tokyo</h2>
+          <p className="text-center text-gray-300 mt-3 mb-12 max-w-3xl mx-auto">
+            Wander the endless heart of Japan — where neon rain, night winds, and old echoes
+            braid into a story that never sleeps.
+          </p>
+          <div className="mx-auto" style={{ height: '600px', position: 'relative' }}>
+            <div className="relative h-full w-full mx-auto rounded-lg overflow-hidden border border-gray-300/30 bg-white/5 backdrop-blur-sm">
+              <InfiniteScroll
+                width="500px"
+                maxHeight="100%"
+                itemMinHeight={300}
+                items={[
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/tokyo-1.avif" alt="The Beauty of Tokyo" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">Tokyo shimmers under neon rain — a dream that refuses dawn.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/tokyo-3.jpg" alt="Calming Place in Tokyo" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">Between sakura hush and city hum, Tokyo whispers: go gently, onward.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/night-2.jpeg" alt="The Summer of Glass" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">Rain beads on asphalt — the city remembers the sky it borrowed.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/tokyo-4.jpg" alt="Tokyo at Night" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">Beyond the neon veil, a quiet longing follows every step.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/cuisine-2.jpg" alt="Glass Morphism" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">Every flavor is a voyage — every bite unlocks a lantern-lit street.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/tokyo-5.jpeg" alt="Modern UI Design" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">The future drifts softly through corridors of glass and light.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/tokyo-6.webp" alt="Digital Art" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">At light-crossroads, time tilts and shows its hidden edge.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/cuisine-1.jpeg" alt="Culinary Experience" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">Street-side aromas become maps for small, brave adventures.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/night-1.jpg" alt="Neon Nights" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">Neon speaks in color; curiosity answers in footsteps.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) },
+                  { content: (
+                    <div className="relative w-[500px] h-[300px] rounded-2xl overflow-hidden shadow-lg">
+                      <Image src="/images/tokyo-2.jpeg" alt="Urban Landscape" fill sizes="500px" className="object-cover scale-110" quality={100} />
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 text-white">
+                          <p className="text-lg font-semibold drop-shadow">In Tokyo, every crossing is a choice — every path a promise.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) }
+                ]}
+                isTilted
+                tiltDirection="left"
+                autoplay
+                autoplaySpeed={0.1}
+                autoplayDirection="down"
+                pauseOnHover
+              />
+            </div>
           </div>
         </div>
       </section>

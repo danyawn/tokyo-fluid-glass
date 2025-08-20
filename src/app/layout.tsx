@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import ScrollEffects from "./components/ui/ScrollEffects";
@@ -13,6 +13,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tokyo-glass.vercel.app"),
   title: {
     default: "Tokyo Experience — Fluid Glass, Iridescence & Interactive Gallery",
     template: "%s | Tokyo Experience",
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     title: "Tokyo Experience — Fluid Glass & Iridescence",
     description:
       "Immersive Tokyo experience with fluid glass 3D, iridescence backgrounds, interactive gallery, and GSAP animations. Built with Next.js 15 and Three.js.",
-    url: "https://fluid-glass-web.vercel.app",
+    url: "https://tokyo-glass.vercel.app/",
     siteName: "Tokyo Experience",
     images: [
       {
@@ -76,10 +77,8 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
+  alternates: {
+    canonical: "https://tokyo-glass.vercel.app/",
   },
   category: "technology",
   classification: "Web Application",
@@ -87,6 +86,12 @@ export const metadata: Metadata = {
     "theme-color": "#000000",
     "msapplication-TileColor": "#000000",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({

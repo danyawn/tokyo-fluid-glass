@@ -1,0 +1,438 @@
+---
+alwaysApply: true
+---
+
+# Development Rules
+# Fundamental Development Best Practices for Modern Web Development
+
+## 1. General Code Style & Quality
+
+- Always use **TypeScript** with `strict: true`; avoid `any` and prefer `unknown` if necessary
+- Use **single quotes** for strings; omit semicolons only if explicitly allowed by the project style
+- Prefer **`const`** over `let`, unless rebinding is required
+- Regularly run `npm outdated` or `yarn outdated` and update with `npm update` or `yarn upgrade`
+- Always run `prettier --check` and `eslint --fix` before committing
+- Prioritize **readability over short-term convenience**
+
+### ⚠️ FUNDAMENTAL PRINCIPLE: Code Simplicity
+- **"Simplicity is the best way to code"** - The simpler the code, the easier it is to understand and maintain
+- **Avoid over-engineering** - Don't add complexity unless absolutely necessary
+- **Write code for humans first, machines second** - Prioritize readability and clarity
+- **Keep functions small and focused** - Single responsibility principle
+- **Prefer simple solutions** over complex abstractions
+- **If you can't explain it simply, you don't understand it well enough**
+
+## 2. Next.js & App Router Fundamentals
+
+- Default to **Server Components**. Add `"use client"` on top for Client Components
+- Keep route files minimal. Move complex logic to `_components/`, `_hooks/`, or `_schemas/`
+- Use **dynamic imports** via `next/dynamic` with `Suspense` for non-critical components
+- Define page metadata using:
+  ```ts
+  export const metadata = { title, description }
+  ```
+- Leverage **ISR**, **static props**, and **caching** for maximum performance
+
+## 3. CSS & UI Framework Principles
+
+- Use **consistent UI framework** throughout the project
+- Configure framework properly for **SSR support**
+- Implement **responsive design** using framework's breakpoint system
+- Use **consistent iconography** library
+- **Responsiveness is mandatory**
+
+### ⚠️ IMPORTANT: Always Check Latest Documentation
+- **ALWAYS** check official documentation before using components
+- Check for **deprecated APIs** and migration guides
+- Use **latest stable versions** of all dependencies
+- Follow **breaking changes** and migration guides for major version updates
+- Test components after library updates to ensure compatibility
+
+## 4. Data Fetching & API Layer Principles
+
+- Use **consistent HTTP client** for API requests
+- Organize API logic under `services/` directory
+- Implement proper **error handling** with centralized utilities
+- Use **secure authentication** methods
+- Handle **loading** and **error** states explicitly
+
+## 5. Validation & Forms Principles
+
+- Use **schema validation** library consistently
+- Integrate validation with **form management** library
+- Create separate schemas for client and server validation
+- Display inline errors using UI components
+- Disable submit buttons during validation
+
+## 6. State Management & Context Principles
+
+- Use **React Context** for global state management
+- Implement **permission-based access control**
+- Keep local state minimal, prefer server state when possible
+- Use **type-safe** state management
+
+## 7. Error Handling & User Feedback Principles
+
+- Use **consistent notification** library for user feedback
+- Implement centralized error handling with utilities
+- Display user-friendly error messages from API responses
+- Use UI components for error states and loading indicators
+
+## 8. Folder Structure & Organization
+
+### Route-Level Organization
+```
+app/feature/
+├── _components/     # Feature-specific components
+├── _hooks/         # Feature-specific hooks
+├── _schemas/       # Feature-specific validation schemas
+└── page.tsx        # Minimal route component
+```
+
+### Global Organization
+```
+src/
+├── app/            # Next.js app router pages
+├── components/     # Shared/reusable components
+├── services/       # API services and utilities
+├── context/        # React context providers
+├── hooks/          # Shared custom hooks
+├── utils/          # Utility functions
+├── types/          # TypeScript type definitions
+├── constants/      # Application constants
+├── configs/        # Configuration files
+└── themes/         # Theme configuration
+```
+
+## 9. Component Architecture Principles
+
+- Separate **presentational** and **container** components
+- Use **composition** over inheritance
+- Implement **proper prop typing** with TypeScript
+- Keep components **focused and single-purpose**
+- Use **UI framework components** as building blocks
+
+## 10. Form Handling Principles
+
+- Use **form management** library with **validation**
+- Implement **controlled components** with proper state management
+- Use **UI form components** for consistent UI
+- Handle **form submission** with proper loading states
+- Implement **form reset** after successful submission
+
+## 11. Authentication & Security Principles
+
+- Use **secure session management**
+- Implement **secure configuration** with proper flags
+- Use **permission-based access control**
+- Implement **session management** mechanism
+- Clear sensitive data on logout
+
+## 12. Performance Optimization Principles
+
+- Use **framework built-in optimizations**
+- Implement **lazy loading** for non-critical components
+- Use **React.memo** for expensive components
+- Optimize **bundle size** with proper imports
+- Use **framework optimization features**
+
+## 13. Code Quality & Testing Principles
+
+- Use **TypeScript strict mode** for type safety
+- Implement **ESLint** with proper configuration
+- Use **Prettier** for consistent code formatting
+- Write **unit tests** for utility functions
+- Implement **error boundaries** for graceful error handling
+
+## 14. Development Workflow Principles
+
+- Use **fast development builds** (Turbopack, Vite, etc.)
+- Implement **hot reload** for efficient development
+- Use **environment variables** for configuration
+- Implement **proper logging** for debugging
+- Use **Git hooks** for code quality checks
+- **No need to build** after code generation - use hot reload for immediate feedback
+
+## 15. Dependency Management Principles
+
+### Before Using Any Library
+- **ALWAYS** check the official documentation first
+- Verify **compatibility** with current project setup
+- Check for **breaking changes** in recent versions
+- Review **migration guides** for major version updates
+- Test **new features** in development before production
+
+### Regular Maintenance
+- **Weekly**: Check for dependency updates
+- **Monthly**: Review and update dependencies
+- **Quarterly**: Audit for security vulnerabilities
+- **Before major releases**: Test all dependencies thoroughly
+
+## 16. General Best Practices
+
+### Code Organization
+- **Keep related code together** - Group related functionality
+- **Use meaningful names** - Variables, functions, and files should be self-documenting
+- **Follow consistent patterns** - Use established patterns throughout the codebase
+- **Minimize dependencies** - Only add dependencies when absolutely necessary
+
+### Error Handling
+- **Handle errors gracefully** - Always provide fallbacks
+- **Log errors appropriately** - Use proper logging levels
+- **Provide user feedback** - Users should know when something goes wrong
+- **Fail fast** - Catch errors early and handle them appropriately
+
+### Performance
+- **Measure performance** - Use tools to identify bottlenecks
+- **Optimize critical paths** - Focus on user-facing performance
+- **Use caching appropriately** - Cache expensive operations
+- **Minimize bundle size** - Only include what's necessary
+
+### Security
+- **Validate all inputs** - Never trust user input
+- **Use secure defaults** - Default to secure configurations
+- **Keep dependencies updated** - Regularly update for security patches
+- **Follow security best practices** - Implement proper authentication and authorization
+
+## 17. Command Execution Rules
+
+### ⚠️ CRITICAL: No Unauthorized Commands
+- **NEVER** run `npm run dev` or `npm run build` without explicit user permission
+- **NEVER** start development server without user request
+- **NEVER** execute build commands without user instruction
+- **ALWAYS** ask for permission before running any npm/yarn commands
+- **ONLY** run commands when specifically requested by the user
+
+### Allowed Commands (with permission)
+- Code generation and file creation
+- File editing and modifications
+- Type checking and linting
+- Git operations (when requested)
+- Package installation (when requested)
+
+### Forbidden Commands (without explicit permission)
+- `npm run dev`
+- `npm run build`
+- `npm start`
+- `yarn dev`
+- `yarn build`
+- `yarn start`
+- Any server startup commands
+- Any build commands
+# Development Rules
+# Fundamental Development Best Practices for Modern Web Development
+
+## 1. General Code Style & Quality
+
+- Always use **TypeScript** with `strict: true`; avoid `any` and prefer `unknown` if necessary
+- Use **single quotes** for strings; omit semicolons only if explicitly allowed by the project style
+- Prefer **`const`** over `let`, unless rebinding is required
+- Regularly run `npm outdated` or `yarn outdated` and update with `npm update` or `yarn upgrade`
+- Always run `prettier --check` and `eslint --fix` before committing
+- Prioritize **readability over short-term convenience**
+
+### ⚠️ FUNDAMENTAL PRINCIPLE: Code Simplicity
+- **"Simplicity is the best way to code"** - The simpler the code, the easier it is to understand and maintain
+- **Avoid over-engineering** - Don't add complexity unless absolutely necessary
+- **Write code for humans first, machines second** - Prioritize readability and clarity
+- **Keep functions small and focused** - Single responsibility principle
+- **Prefer simple solutions** over complex abstractions
+- **If you can't explain it simply, you don't understand it well enough**
+
+## 2. Next.js & App Router Fundamentals
+
+- Default to **Server Components**. Add `"use client"` on top for Client Components
+- Keep route files minimal. Move complex logic to `_components/`, `_hooks/`, or `_schemas/`
+- Use **dynamic imports** via `next/dynamic` with `Suspense` for non-critical components
+- Define page metadata using:
+  ```ts
+  export const metadata = { title, description }
+  ```
+- Leverage **ISR**, **static props**, and **caching** for maximum performance
+
+## 3. CSS & UI Framework Principles
+
+- Use **consistent UI framework** throughout the project
+- Configure framework properly for **SSR support**
+- Implement **responsive design** using framework's breakpoint system
+- Use **consistent iconography** library
+- **Responsiveness is mandatory**
+
+### ⚠️ IMPORTANT: Always Check Latest Documentation
+- **ALWAYS** check official documentation before using components
+- Check for **deprecated APIs** and migration guides
+- Use **latest stable versions** of all dependencies
+- Follow **breaking changes** and migration guides for major version updates
+- Test components after library updates to ensure compatibility
+
+## 4. Data Fetching & API Layer Principles
+
+- Use **consistent HTTP client** for API requests
+- Organize API logic under `services/` directory
+- Implement proper **error handling** with centralized utilities
+- Use **secure authentication** methods
+- Handle **loading** and **error** states explicitly
+
+## 5. Validation & Forms Principles
+
+- Use **schema validation** library consistently
+- Integrate validation with **form management** library
+- Create separate schemas for client and server validation
+- Display inline errors using UI components
+- Disable submit buttons during validation
+
+## 6. State Management & Context Principles
+
+- Use **React Context** for global state management
+- Implement **permission-based access control**
+- Keep local state minimal, prefer server state when possible
+- Use **type-safe** state management
+
+## 7. Error Handling & User Feedback Principles
+
+- Use **consistent notification** library for user feedback
+- Implement centralized error handling with utilities
+- Display user-friendly error messages from API responses
+- Use UI components for error states and loading indicators
+
+## 8. Folder Structure & Organization
+
+### Route-Level Organization
+```
+app/feature/
+├── _components/     # Feature-specific components
+├── _hooks/         # Feature-specific hooks
+├── _schemas/       # Feature-specific validation schemas
+└── page.tsx        # Minimal route component
+```
+
+### Global Organization
+```
+src/
+├── app/            # Next.js app router pages
+├── components/     # Shared/reusable components
+├── services/       # API services and utilities
+├── context/        # React context providers
+├── hooks/          # Shared custom hooks
+├── utils/          # Utility functions
+├── types/          # TypeScript type definitions
+├── constants/      # Application constants
+├── configs/        # Configuration files
+└── themes/         # Theme configuration
+```
+
+## 9. Component Architecture Principles
+
+- Separate **presentational** and **container** components
+- Use **composition** over inheritance
+- Implement **proper prop typing** with TypeScript
+- Keep components **focused and single-purpose**
+- Use **UI framework components** as building blocks
+
+## 10. Form Handling Principles
+
+- Use **form management** library with **validation**
+- Implement **controlled components** with proper state management
+- Use **UI form components** for consistent UI
+- Handle **form submission** with proper loading states
+- Implement **form reset** after successful submission
+
+## 11. Authentication & Security Principles
+
+- Use **secure session management**
+- Implement **secure configuration** with proper flags
+- Use **permission-based access control**
+- Implement **session management** mechanism
+- Clear sensitive data on logout
+
+## 12. Performance Optimization Principles
+
+- Use **framework built-in optimizations**
+- Implement **lazy loading** for non-critical components
+- Use **React.memo** for expensive components
+- Optimize **bundle size** with proper imports
+- Use **framework optimization features**
+
+## 13. Code Quality & Testing Principles
+
+- Use **TypeScript strict mode** for type safety
+- Implement **ESLint** with proper configuration
+- Use **Prettier** for consistent code formatting
+- Write **unit tests** for utility functions
+- Implement **error boundaries** for graceful error handling
+
+## 14. Development Workflow Principles
+
+- Use **fast development builds** (Turbopack, Vite, etc.)
+- Implement **hot reload** for efficient development
+- Use **environment variables** for configuration
+- Implement **proper logging** for debugging
+- Use **Git hooks** for code quality checks
+- **No need to build** after code generation - use hot reload for immediate feedback
+
+## 15. Dependency Management Principles
+
+### Before Using Any Library
+- **ALWAYS** check the official documentation first
+- Verify **compatibility** with current project setup
+- Check for **breaking changes** in recent versions
+- Review **migration guides** for major version updates
+- Test **new features** in development before production
+
+### Regular Maintenance
+- **Weekly**: Check for dependency updates
+- **Monthly**: Review and update dependencies
+- **Quarterly**: Audit for security vulnerabilities
+- **Before major releases**: Test all dependencies thoroughly
+
+## 16. General Best Practices
+
+### Code Organization
+- **Keep related code together** - Group related functionality
+- **Use meaningful names** - Variables, functions, and files should be self-documenting
+- **Follow consistent patterns** - Use established patterns throughout the codebase
+- **Minimize dependencies** - Only add dependencies when absolutely necessary
+
+### Error Handling
+- **Handle errors gracefully** - Always provide fallbacks
+- **Log errors appropriately** - Use proper logging levels
+- **Provide user feedback** - Users should know when something goes wrong
+- **Fail fast** - Catch errors early and handle them appropriately
+
+### Performance
+- **Measure performance** - Use tools to identify bottlenecks
+- **Optimize critical paths** - Focus on user-facing performance
+- **Use caching appropriately** - Cache expensive operations
+- **Minimize bundle size** - Only include what's necessary
+
+### Security
+- **Validate all inputs** - Never trust user input
+- **Use secure defaults** - Default to secure configurations
+- **Keep dependencies updated** - Regularly update for security patches
+- **Follow security best practices** - Implement proper authentication and authorization
+
+## 17. Command Execution Rules
+
+### ⚠️ CRITICAL: No Unauthorized Commands
+- **NEVER** run `npm run dev` or `npm run build` without explicit user permission
+- **NEVER** start development server without user request
+- **NEVER** execute build commands without user instruction
+- **ALWAYS** ask for permission before running any npm/yarn commands
+- **ONLY** run commands when specifically requested by the user
+
+### Allowed Commands (with permission)
+- Code generation and file creation
+- File editing and modifications
+- Type checking and linting
+- Git operations (when requested)
+- Package installation (when requested)
+
+### Forbidden Commands (without explicit permission)
+- `npm run dev`
+- `npm run build`
+- `npm start`
+- `yarn dev`
+- `yarn build`
+- `yarn start`
+- Any server startup commands
+- Any build commands

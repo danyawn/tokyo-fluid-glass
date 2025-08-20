@@ -1,0 +1,90 @@
+# Security Rules
+# Security Best Practices for Front-End Development
+
+## 1. Authentication & Session Management
+
+- Use **HTTPS-only cookies** for authentication
+- Implement proper **CSRF protection** with SameSite cookies
+- Use **httpOnly** cookies for sensitive data
+- Implement proper **session management** with auto-refresh
+- Clear sensitive data from memory and storage on logout
+- Set appropriate cookie expiration times
+- Implement session timeout handling
+
+## 2. Input Validation & Sanitization
+
+- Validate all user inputs on both client and server side
+- Use **Zod schemas** for input validation
+- Sanitize data before storing or displaying
+- Implement proper **XSS protection**
+- Use **Content Security Policy (CSP)** headers
+- Escape user-generated content before rendering
+
+## 3. API Security
+
+- Use **HTTPS** for all API communications
+- Implement proper **CORS** policies
+- Use **API rate limiting** to prevent abuse
+- Validate API responses before processing
+- Implement proper **error handling** without exposing sensitive information
+- Use **JWT tokens** with appropriate expiration
+
+## 4. Data Protection
+
+- Never store sensitive data in localStorage
+- Use **secure storage** for sensitive information
+- Implement proper **data encryption** for sensitive data
+- Clear sensitive data from memory when not needed
+- Use **environment variables** for sensitive configuration
+
+## 5. Error Handling Security
+
+- Don't expose internal error details to users
+- Log errors securely without sensitive information
+- Implement proper **error boundaries** in React
+- Use generic error messages for security-related failures
+- Implement proper **audit logging** for security events
+
+## 6. Code Security
+
+- Keep dependencies updated to patch security vulnerabilities
+- Use **security linters** and static analysis tools
+- Implement **code reviews** with security focus
+- Avoid using `eval()` or `innerHTML` with user input
+- Use **TypeScript strict mode** to prevent type-related vulnerabilities
+
+## 7. Environment Security
+
+- Use **environment variables** for sensitive configuration
+- Never commit secrets to version control
+- Use **secrets management** tools in production
+- Implement proper **access controls** for different environments
+- Use **secure deployment** practices
+
+## 8. Third-Party Security
+
+- Vet third-party libraries for security vulnerabilities
+- Use **subresource integrity (SRI)** for external resources
+- Implement proper **CSP** to control external resources
+- Regularly audit third-party dependencies
+- Use **package signing** when available
+
+## 9. User Privacy
+
+- Implement proper **data minimization** practices
+- Use **privacy-by-design** principles
+- Implement proper **consent management**
+- Follow **GDPR** and other privacy regulations
+- Implement proper **data retention** policies
+
+## 10. Security Testing
+
+- Implement **security testing** in CI/CD pipeline
+- Use **automated security scanning** tools
+- Perform regular **security audits**
+- Implement **penetration testing** procedures
+- Use **security monitoring** tools in production
+description:
+globs:
+alwaysApply: false
+---
